@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{csv-query}
   spec.description   = %q{csv-query}
+  spec.homepage      = "https://github.com/naofumi-fujii/csv-query"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
