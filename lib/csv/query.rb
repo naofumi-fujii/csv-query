@@ -11,7 +11,7 @@ module Csv
       file_path =
         ARGV.getopts(nil, 'file:').values[0]
 
-      InMemoryAR.new(file_path).run! { pp InMemoryAR::Record.all }
+      InMemoryAR.new(file_path).run! { InMemoryAR::Record.all }
     end
 
     class InMemoryAR
@@ -62,7 +62,7 @@ module Csv
         csv.each do |row|
           Record.create!(row.to_h)
         end
-        yield
+        pp yield
       end
     end
   end
