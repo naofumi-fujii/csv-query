@@ -15,6 +15,7 @@ module Csv
     end
 
     class InMemoryAR
+      # temporary AR obj
       class Record < ActiveRecord::Base
       end
 
