@@ -46,3 +46,4 @@ Everyone interacting in the Csv::Query project’s codebases, issue trackers, ch
 ## Alternative/related projects
 * [csvq.py - Python variant that does almost the same thing](http://www.gl1tch.com/~lukewarm/software/csvq/)
 * [CSVql - A query language for CSV files](https://github.com/ondrasej/CSVql)
+* koppen/csv_query: Command line tool to query CSV data using SQL https://github.com/koppen/csv_query
