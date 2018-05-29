@@ -8,10 +8,13 @@ module Csv
   module Query
     # Your code goes here...
     def self.run!
-      file_path =
-        ARGV.getopts(nil, 'file:').values[0]
+      file_path, query =
+        ARGV.getopts(nil, 'file:', 'query:').values
 
-      InMemoryAR.new(file_path).run! { InMemoryAR::Record.all }
+      InMemoryAR.new(file_path).run! {
+        # InMemoryAR::Record.all
+        eval(query)
+      }
     end
 
     class InMemoryAR
