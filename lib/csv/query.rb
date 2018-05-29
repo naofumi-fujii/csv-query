@@ -3,6 +3,7 @@ require 'csv'
 require 'sqlite3'
 require 'active_record'
 require 'optparse'
+require 'pp'
 
 # usage: $ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
 module Csv
