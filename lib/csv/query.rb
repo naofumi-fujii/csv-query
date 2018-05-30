@@ -12,10 +12,10 @@ module Csv
   module Query
     # Your code goes here...
     def self.run!
-      file_path, query =
-        ARGV.getopts(nil, 'file:', 'query:').values
+      file_path, query, json =
+        ARGV.getopts(nil, 'file:', 'query:', 'json').values
 
-      InMemoryAR.new(file_path).run! {
+      InMemoryAR.new(file_path, json).run! {
         # InMemoryAR::Record.all
         eval(query)
       }
@@ -52,7 +52,8 @@ module Csv
 
       attr_reader :file_path
 
-      def initialize file_path
+      def initialize(file_path, json)
+        @json = json
         @file_path = file_path
 
         migration(csv_headers)
@@ -72,13 +73,22 @@ module Csv
         end
       end
 
+      def json_format?
+        @json
+      end
+
       def run!
         csv.each do |row|
           Record.create!(row.to_h)
         end
         records = yield
-        rows = records.map { |e| e.attributes.values }
-        puts Terminal::Table.new :headings => csv_headers, :rows => rows
+
+        if json_format?
+          puts records.map { |e| e.attributes }.to_json
+        else
+          rows = records.map { |e| e.attributes.values }
+          puts Terminal::Table.new :headings => csv_headers, :rows => rows
+        end
       end
     end
   end
