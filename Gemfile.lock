@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    csv-query (0.1.9)
+    csv-query (0.1.10)
       activerecord
       charlock_holmes
       sqlite3
