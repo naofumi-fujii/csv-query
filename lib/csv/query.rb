@@ -5,6 +5,7 @@ require 'active_record'
 require 'optparse'
 require 'pp'
 require 'charlock_holmes/string'
+require 'terminal-table'
 
 # usage: $ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
 module Csv
@@ -75,7 +76,9 @@ module Csv
         csv.each do |row|
           Record.create!(row.to_h)
         end
-        pp yield
+        records = yield
+        rows = records.map { |e| e.attributes.values }
+        puts Terminal::Table.new :headings => csv_headers, :rows => rows
       end
     end
   end
