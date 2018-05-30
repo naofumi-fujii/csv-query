@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-$ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
+    $ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
 
 ## Development
 
