@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'active_record'
 require 'optparse'
 require 'pp'
+require 'charlock_holmes/string'
 
 # usage: $ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
 module Csv
@@ -34,7 +35,14 @@ module Csv
       end
 
       def csv
-        CSV.read(file_path, encoding: "SJIS:UTF-8", headers: true, header_converters: header_converter)
+        contents = File.read(file_path)
+        detection = contents.detect_encoding
+        case detection[:encoding]
+        when "Shift_JIS"
+          CSV.read(file_path, encoding: "SJIS:UTF-8", headers: true, header_converters: header_converter)
+        when "UTF-8"
+          CSV.read(file_path, encoding: "UTF-8:UTF-8", headers: true, header_converters: header_converter)
+        end
       end
 
       def csv_headers
