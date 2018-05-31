@@ -47,6 +47,8 @@ module Csv
           CSV.read(file_path, encoding: "SJIS:UTF-8", headers: true, header_converters: header_converter)
         when "UTF-8"
           CSV.read(file_path, encoding: "UTF-8:UTF-8", headers: true, header_converters: header_converter)
+        when "ISO-8859-1"
+          CSV.read(file_path, encoding: "ISO8859-1:UTF-8", headers: true, header_converters: header_converter)
         end
       end
 
