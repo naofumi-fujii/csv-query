@@ -3,7 +3,6 @@ require 'csv'
 require 'sqlite3'
 require 'active_record'
 require 'optparse'
-require 'pp'
 require 'charlock_holmes/string'
 require 'terminal-table'
 
