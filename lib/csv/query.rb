@@ -110,9 +110,9 @@ module Csv
 
       def render records
         if json_format?
-          puts records.map { |e| e.to_h }.to_json
+          puts Array.wrap(records).map { |e| e.to_h }.to_json
         else
-          rows = records.map { |e| e.to_h.values }
+          rows = Array.wrap(records).map { |e| e.to_h.values }
           puts Terminal::Table.new :headings => csv_headers, :rows => rows
         end
       end
