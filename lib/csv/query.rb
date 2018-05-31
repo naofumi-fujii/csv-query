@@ -78,9 +78,10 @@ module Csv
           Record.create!(row.to_h)
         end
 
-        records =
-          InMemoryAR::Record.all
+        render InMemoryAR::Record.all
+      end
 
+      def render records
         if json_format?
           puts records.map { |e| e.attributes }.to_json
         else
