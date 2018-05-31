@@ -7,18 +7,14 @@ require 'pp'
 require 'charlock_holmes/string'
 require 'terminal-table'
 
-# usage: $ bundle exec csv-query --file ~/Downloads/head10.csv --query 'InMemoryAR::Record.all'
 module Csv
   module Query
     # Your code goes here...
     def self.run!
-      file_path, query, json =
-        ARGV.getopts(nil, 'file:', 'query:', 'json').values
+      file_path, json =
+        ARGV.getopts(nil, 'file:', 'json').values
 
-      InMemoryAR.new(file_path, json).run! {
-        # InMemoryAR::Record.all
-        eval(query)
-      }
+      InMemoryAR.new(file_path, json).run!
     end
 
     class InMemoryAR
@@ -81,7 +77,9 @@ module Csv
         csv.each do |row|
           Record.create!(row.to_h)
         end
-        records = yield
+
+        records =
+          InMemoryAR::Record.all
 
         if json_format?
           puts records.map { |e| e.attributes }.to_json
