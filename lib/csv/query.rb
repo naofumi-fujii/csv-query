@@ -11,9 +11,9 @@ module Csv
     # Your code goes here...
     def self.run!
       file_path, json, sync =
-        ARGV.getopts(nil, 'file:', 'json', 'sync').values
+        ARGV.getopts(nil, 'file:', 'json').values
 
-      InMemoryAR.new(file_path, json, sync).run!
+      InMemoryAR.new(file_path, json).run!
     end
 
     class InMemoryAR
@@ -58,8 +58,7 @@ module Csv
 
       attr_reader :file_path
 
-      def initialize(file_path, json, sync)
-        @sync = sync
+      def initialize(file_path, json)
         @json = json
         @file_path = file_path
 
@@ -84,10 +83,6 @@ module Csv
         @json
       end
 
-      def sync?
-        @sync
-      end
-
       def run!
         csv.each do |row|
           Record.create!(row.to_h)
@@ -95,17 +90,7 @@ module Csv
 
         records = InMemoryAR::Record.all
 
-        export_as_csv(records) if sync?
-
         render(records)
-      end
-
-      def export_as_csv records
-        CSV.open(file_path, "wb", encoding: encoding, headers: csv_headers, write_headers: true, force_quotes: true) do |csv|
-          records.each do |record|
-            csv << record.to_h.values
-          end
-        end
       end
 
       def render records
