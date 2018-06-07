@@ -90,9 +90,11 @@ module Csv
             Record.create!(row.to_h)
           end
 
-          records = InMemoryAR::Record.all
-
           render(records)
+        end
+
+        def records
+          InMemoryAR::Record.all
         end
 
         def render records
