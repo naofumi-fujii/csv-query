@@ -11,10 +11,11 @@ module Csv
     class CLI < Thor
       # Your code goes here...
       method_option :file, type: :string, required: true
+      method_option :sql, type: :string
       method_option :json
       desc "main", "do something"
       def main
-        InMemoryAR.new(options[:file], options[:json]).run!
+        InMemoryAR.new(options[:file], options[:json], options[:sql]).run!
       end
       default_task :main
 
@@ -58,9 +59,10 @@ module Csv
           csv.headers
         end
 
-        attr_reader :file_path, :json
+        attr_reader :file_path, :json, :sql
 
-        def initialize(file_path, json)
+        def initialize(file_path, json, sql)
+          @sql = sql
           @json = json
           @file_path = file_path
 
@@ -94,7 +96,11 @@ module Csv
         end
 
         def records
-          InMemoryAR::Record.all
+          if sql.present?
+            InMemoryAR::Record.find_by_sql(sql)
+          else
+            InMemoryAR::Record.all
+          end
         end
 
         def render records
@@ -103,7 +109,6 @@ module Csv
           else
             rows = Array.wrap(records).map { |e| e.to_h.values }
             puts Terminal::Table.new :headings => csv_headers, :rows => rows
-            puts "[SQL]: #{records.to_sql};"
           end
         end
       end
