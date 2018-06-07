@@ -103,6 +103,7 @@ module Csv
           else
             rows = Array.wrap(records).map { |e| e.to_h.values }
             puts Terminal::Table.new :headings => csv_headers, :rows => rows
+            puts "[SQL]: #{records.to_sql};"
           end
         end
       end
