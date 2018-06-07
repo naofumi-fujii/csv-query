@@ -108,7 +108,7 @@ module Csv
             puts Array.wrap(records).map { |e| e.to_h }.to_json
           else
             rows = Array.wrap(records).map { |e| e.to_h.values }
-            puts Terminal::Table.new :headings => csv_headers, :rows => rows
+            puts Terminal::Table.new :headings => records.first.to_h.keys, :rows => rows
             puts "#{records.count} records"
           end
         end
