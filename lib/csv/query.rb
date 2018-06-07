@@ -2,20 +2,21 @@ require "csv/query/version"
 require 'csv'
 require 'sqlite3'
 require 'active_record'
-require 'optparse'
 require 'charlock_holmes/string'
 require 'terminal-table'
+require 'thor'
 
 module Csv
   module Query
-    class CLI
+    class CLI < Thor
       # Your code goes here...
-      def self.start
-        file_path, json, sync =
-          ARGV.getopts(nil, 'file:', 'json').values
-
-        InMemoryAR.new(file_path, json).run!
+      method_option :file, type: :string, required: true
+      method_option :json
+      desc "main", "do something"
+      def main
+        InMemoryAR.new(options[:file], options[:json]).run!
       end
+      default_task :main
 
       class InMemoryAR
         # temporary AR obj
