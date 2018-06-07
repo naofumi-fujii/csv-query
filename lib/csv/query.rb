@@ -10,7 +10,7 @@ module Csv
   module Query
     class CLI
       # Your code goes here...
-      def self.run!
+      def self.start
         file_path, json, sync =
           ARGV.getopts(nil, 'file:', 'json').values
 
