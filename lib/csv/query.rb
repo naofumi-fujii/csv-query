@@ -2,7 +2,6 @@ require "csv/query/version"
 require 'csv'
 require 'sqlite3'
 require 'active_record'
-require 'optparse'
 require 'charlock_holmes/string'
 require 'terminal-table'
 require 'thor'
@@ -15,10 +14,7 @@ module Csv
       method_option :json
       desc "main", "do something"
       def main
-        file_path, json, sync =
-          ARGV.getopts(nil, 'file:', 'json').values
-
-        InMemoryAR.new(file_path, json).run!
+        InMemoryAR.new(options[:file], options[:json]).run!
       end
       default_task :main
 
