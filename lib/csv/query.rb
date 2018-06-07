@@ -109,6 +109,7 @@ module Csv
           else
             rows = Array.wrap(records).map { |e| e.to_h.values }
             puts Terminal::Table.new :headings => csv_headers, :rows => rows
+            puts "#{records.count} records"
           end
         end
       end
