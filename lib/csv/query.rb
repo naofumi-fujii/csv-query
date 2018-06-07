@@ -58,7 +58,7 @@ module Csv
           csv.headers
         end
 
-        attr_reader :file_path
+        attr_reader :file_path, :json
 
         def initialize(file_path, json)
           @json = json
@@ -82,7 +82,7 @@ module Csv
         end
 
         def json_format?
-          @json
+          json
         end
 
         def run!
