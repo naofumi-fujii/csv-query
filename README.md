@@ -23,6 +23,8 @@ Or install it yourself as:
     $ bundle exec csv-query --file ~/Downloads/your_file.csv
 ### --sql
     $ bundle exec csv-query --file ~/Downloads/your_file.csv --sql "select * from records limit 10;"
+### --json
+    $ bundle exec csv-query --file ~/Downloads/your_file.csv --json
 
 ## Development
 
